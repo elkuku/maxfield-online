@@ -1,0 +1,4 @@
+[submodule "maxfield"]
+	path = maxfield
+	url = https://github.com/tvwenger/maxfield.git
+	branch = master
