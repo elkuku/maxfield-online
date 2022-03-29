@@ -1,0 +1,12 @@
+Agent Key Preparation: sorted by portal number 
+
+Needed = keys this agent requires
+# = portal number on portal map
+Name = portal name in portal file
+
+Keys for Agent 1
+Needed ;   # ; Name
+     2 ;   0 ; Grafiti Cultural Atacames
+     1 ;   1 ; La Bota Del Marqués
+     2 ;   2 ; Mural Playa Hermosa
+

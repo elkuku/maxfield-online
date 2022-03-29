@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f53c8875bf6c4f0bb7120ce59ce0bdb1",
+    "content-hash": "fc14851a1a5d1c14ce4eda4949ee86d0",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1298,16 +1298,16 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "e7c8edcf98e819638af00e7b3cbbbd7734b9b2fb"
+                "reference": "092a52b71410ac1795287bb5135704ef07d18dd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/e7c8edcf98e819638af00e7b3cbbbd7734b9b2fb",
-                "reference": "e7c8edcf98e819638af00e7b3cbbbd7734b9b2fb",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/092a52b71410ac1795287bb5135704ef07d18dd0",
+                "reference": "092a52b71410ac1795287bb5135704ef07d18dd0",
                 "shasum": ""
             },
             "require": {
@@ -1380,9 +1380,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/2.4.0"
+                "source": "https://github.com/doctrine/persistence/tree/2.4.1"
             },
-            "time": "2022-03-13T16:11:46+00:00"
+            "time": "2022-03-22T06:44:40+00:00"
         },
         {
             "name": "doctrine/sql-formatter",
@@ -1438,16 +1438,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.0.9",
+            "version": "v4.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "a582d4590499eab9832cb684c5da61882c92aa73"
+                "reference": "cf8a05e7dd00648c817c404c7f4e8ec70af61706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/a582d4590499eab9832cb684c5da61882c92aa73",
-                "reference": "a582d4590499eab9832cb684c5da61882c92aa73",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/cf8a05e7dd00648c817c404c7f4e8ec70af61706",
+                "reference": "cf8a05e7dd00648c817c404c7f4e8ec70af61706",
                 "shasum": ""
             },
             "require": {
@@ -1514,7 +1514,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.0.9"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.0.10"
             },
             "funding": [
                 {
@@ -1522,7 +1522,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-09T19:03:17+00:00"
+            "time": "2022-03-28T17:20:52+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1591,6 +1591,50 @@
                 }
             ],
             "time": "2021-10-11T09:18:27+00:00"
+        },
+        {
+            "name": "elkuku/maxfield-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elkuku/maxfield-parser.git",
+                "reference": "1ebf98df5fe4dddb9d12738c508eec32109893b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elkuku/maxfield-parser/zipball/1ebf98df5fe4dddb9d12738c508eec32109893b8",
+                "reference": "1ebf98df5fe4dddb9d12738c508eec32109893b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^9.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Elkuku\\MaxfieldParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolai Plath",
+                    "email": "der.el.kuku@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/elkuku/maxfield-parser/issues",
+                "source": "https://github.com/elkuku/maxfield-parser/tree/master"
+            },
+            "time": "2022-03-11T16:13:10+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
@@ -9226,16 +9270,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "2be8dd6dfa09ab1a21c49956ff591979cd5ab29e"
+                "reference": "cc67578d9afd0f5f2545067285613d7a529aefac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2be8dd6dfa09ab1a21c49956ff591979cd5ab29e",
-                "reference": "2be8dd6dfa09ab1a21c49956ff591979cd5ab29e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cc67578d9afd0f5f2545067285613d7a529aefac",
+                "reference": "cc67578d9afd0f5f2545067285613d7a529aefac",
                 "shasum": ""
             },
             "require": {
@@ -9261,7 +9305,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.5.0"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.1"
             },
             "funding": [
                 {
@@ -9281,7 +9325,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-24T18:18:00+00:00"
+            "time": "2022-03-28T15:34:48+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -9770,12 +9814,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a1696aadf99f7ff55d44c56e7ebf54eace85310c"
+                "reference": "2fcd9551cd31a444bbc43d221d483fa658d4c21b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a1696aadf99f7ff55d44c56e7ebf54eace85310c",
-                "reference": "a1696aadf99f7ff55d44c56e7ebf54eace85310c",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2fcd9551cd31a444bbc43d221d483fa658d4c21b",
+                "reference": "2fcd9551cd31a444bbc43d221d483fa658d4c21b",
                 "shasum": ""
             },
             "conflict": {
@@ -10008,7 +10052,7 @@
                 "phpoffice/phpspreadsheet": "<1.16",
                 "phpseclib/phpseclib": "<2.0.31|>=3,<3.0.7",
                 "phpservermon/phpservermon": "<=3.5.2",
-                "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5.0.10,<5.6.3",
+                "phpunit/phpunit": "<4.8.28|>=5,<5.6.3",
                 "phpwhois/phpwhois": "<=4.2.5",
                 "phpxmlrpc/extras": "<0.6.1",
                 "pimcore/pimcore": "<=10.3.2",
@@ -10227,7 +10271,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-22T13:13:56+00:00"
+            "time": "2022-03-26T01:31:07+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -11784,6 +11828,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "elkuku/maxfield-parser": 20,
         "elkuku/symfony-utils": 20,
         "roave/security-advisories": 20
     },
@@ -11792,6 +11837,7 @@
     "platform": {
         "php": ">=8.1",
         "ext-ctype": "*",
+        "ext-curl": "*",
         "ext-iconv": "*",
         "ext-intl": "*"
     },

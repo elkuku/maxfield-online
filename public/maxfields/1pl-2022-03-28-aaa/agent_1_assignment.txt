@@ -1,0 +1,25 @@
+Agent 1 Linking Assignment: links should be made in this order
+
+Link = the current link number
+Agent = the person making this link
+# = portal number on portal map
+Link Origin/Destination = portal name in portal file
+
+Link ; Agent ;   # ; Link Origin
+                 # ; Link Destination
+
+   1 ;     1 ;   3 ; Juegos Aquaticos Azul Real 
+             ;   2 : Mural Playa Hermosa 
+
+   2 ;     1 ;   3 ; Juegos Aquaticos Azul Real 
+             ;   0 : Grafiti Cultural Atacames 
+
+   3 ;     1 ;   3 ; Juegos Aquaticos Azul Real 
+             ;   1 : La Bota Del Marqués 
+
+   4 ;     1 ;   1 ; La Bota Del Marqués 
+             ;   2 : Mural Playa Hermosa 
+
+   5 ;     1 ;   1 ; La Bota Del Marqués 
+             ;   0 : Grafiti Cultural Atacames 
+

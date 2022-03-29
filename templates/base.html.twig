@@ -13,7 +13,7 @@
     {%- endif -%}
     "/>
 
-    <title>{% block title %}PlaygroundOne{% endblock %}</title>
+    <title>{% block title %}Maxfields Online{% endblock %}</title>
 
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -41,7 +41,7 @@
 <footer class="footer">
     <div class="container">
         <span class="float-end">{{ 'Made with {link}'|trans({'link':'<a href="https://symfony.com">Symfony</a>'})|raw }}</span>
-        <span class="text-muted">{{ 'system.footer.content'|trans }}</span>
+        <span class="text-muted">{{ 'system.footer.content'|trans|raw }}</span>
     </div>
 </footer>
 

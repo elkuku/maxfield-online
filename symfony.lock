@@ -117,6 +117,9 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "elkuku/maxfield-parser": {
+        "version": "dev-master"
+    },
     "elkuku/symfony-utils": {
         "version": "dev-master"
     },

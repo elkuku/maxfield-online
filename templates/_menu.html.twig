@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            PlaygroundOne
+            Maxfields
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -11,11 +11,15 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
             <div class="navbar-nav mr-auto">
-                <a class="nav-link" href="#">#GuestMenu</a>
+{#                <a class="nav-link" href="#">#GuestMenu</a>#}
                 {% if app.user %}
-                    <a class="nav-link" href="#">#UserMenu</a>
+{#                    <a class="nav-link" href="#">#UserMenu</a>#}
+                    {% if is_granted('ROLE_AGENT') %}
+                        <a class="nav-link" href="{{ path('map-maxfield') }}">Map</a>
+                        <a class="nav-link" href="{{ path('import') }}">Import</a>
+                    {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a class="nav-link" href="{{ path('admin') }}">{{ 'Admin'|trans }}</a>
+                        <a class="nav-link" href="{{ path('admin') }}">Admin</a>
                     {% endif %}
                 {% endif %}
             </div>

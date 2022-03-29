@@ -1,0 +1,46 @@
+Found 4 portals in portal file: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/1pl-2022-03-28-koko.waypoints
+
+Starting field generation with 4 CPUs.
+Field generation runtime: 0.6 seconds.
+
+==============================
+Maxfield Plan Results:
+    portals         = 4
+    links           = 5
+    fields          = 2
+    max keys needed = 2
+    AP from portals = 7000
+    AP from links   = 1565
+    AP from fields  = 2500
+    TOTAL AP        = 11065
+==============================
+
+Optimizing agent link assignments.
+Route optimization runtime: 0.0 seconds
+
+Total plan build time: 9.2 minutes
+
+Generating key preparation file.
+File saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/key_preparation.txt
+CSV File saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/key_preparation.csv
+Generating ownership preparation file.
+File saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/ownership_preparation.txt
+Generating agent key preparation file.
+File saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/agent_key_preparation.txt
+CSV File saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/agent_key_preparation.csv
+Generating agent link assignments.
+File saved to /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/agent_assignments.txt
+CSV File saved to /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/agent_assignments.csv
+Generating link assignment for agent 1.
+File saved to /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/agent_1_assignment.txt
+
+Generating portal map.
+File saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/portal_map.png
+Generating link map.
+File saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/link_map.png
+
+Generating step-by-step plots.
+Frames saved to: /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/frames/
+GIF saved to /home/elkuku/repos/maxfield-online/public/maxfields/1pl-2022-03-28-koko/plan_movie.gif
+
+Total maxfield runtime: 48.2 seconds

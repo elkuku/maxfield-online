@@ -26,3 +26,18 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\WayPointHelper:
+        arguments:
+            $intelUrl: '%env(INTEL_URL)%'
+
+    App\Service\MaxFieldGenerator:
+        arguments:
+            $maxfieldVersion: '%env(MAXFIELD_VERSION)%'
+            $maxfieldExec: '%env(MAXFIELDS_EXEC)%'
+            $googleApiKey: '%env(GOOGLE_API_KEY)%'
+            $googleApiSecret: '%env(GOOGLE_API_SECRET)%'
+
+    App\Service\MaxFieldHelper:
+        arguments:
+            $maxfieldVersion: '%env(MAXFIELD_VERSION)%'

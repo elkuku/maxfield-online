@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/x-icon" href="
+    {%- if 'dev' == app.environment -%}
+        {{ asset('favicon-dev.ico') }}
+    {%- else -%}
+        {{ asset('favicon.ico') }}
+    {%- endif -%}
+    "/>
+
+    <title>{% block title %}Maxfields Online - Map{% endblock %}</title>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+</head>
+
+<body id="app-layout">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="{{ path('default') }}">FroX</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        {% include '_menu.html.twig' %}
+    </div>
+</nav>
+
+<noscript><h1 class="alert alert-danger">Please activate Javascript</h1></noscript>
+
+{% include ('_flash-messages.html.twig') %}
+
+{% block body %}{% endblock %}
+
+</body>
+</html>

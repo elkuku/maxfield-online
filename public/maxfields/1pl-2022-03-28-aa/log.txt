@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/usr/bin/maxfield-plan", line 4, in <module>
+    __import__('pkg_resources').run_script('maxfield==4.0', 'maxfield-plan')
+  File "/usr/lib/python3.10/site-packages/pkg_resources/__init__.py", line 656, in run_script
+    self.require(requires)[0].run_script(script_name, ns)
+  File "/usr/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1460, in run_script
+    exec(script_code, namespace, namespace)
+  File "/usr/lib/python3.10/site-packages/maxfield-4.0-py3.10.egg/EGG-INFO/scripts/maxfield-plan", line 92, in <module>
+  File "/usr/lib/python3.10/site-packages/maxfield-4.0-py3.10.egg/maxfield/maxfield.py", line 224, in maxfield
+  File "/usr/lib/python3.10/site-packages/maxfield-4.0-py3.10.egg/maxfield/maxfield.py", line 105, in read_portal_file
+ValueError: could not convert string to float: '-79.856074Mural princesa del mar'

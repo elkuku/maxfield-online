@@ -1,0 +1,12 @@
+Agent Key Preparation: sorted by portal number 
+
+Needed = keys this agent requires
+# = portal number on portal map
+Name = portal name in portal file
+
+Keys for Agent 1
+Needed ;   # ; Name
+     2 ;   0 ; Mural Fauna Marina 1
+     2 ;   1 ; Mural princesa del mar
+     1 ;   2 ; Juegos infantiles del Sol
+
