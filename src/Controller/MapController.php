@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Maxfield;
 use App\Entity\User;
 use App\Repository\WaypointRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -14,10 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[IsGranted(User::ROLES['agent'])]
 class MapController extends AbstractController
 {
-    #[Route(path: '/maxfield', name: 'map-maxfield')]
-    public function map(): Response
+    #[Route(path: '/create', name: 'map_create', methods: ['GET'])]
+    public function create(): Response
     {
-        return $this->render('maps/maxfield.html.twig');
+        return $this->render('map/create.html.twig');
+    }
+
+    #[Route(path: '/play/{id}', name: 'map_play', methods: ['GET'])]
+    public function show(Maxfield $maxfield): Response
+    {
+        return $this->render(
+            'map/play.html.twig',
+            [
+                'maxfield' => $maxfield,
+            ]
+        );
     }
 
     #[Route(path: '/get-waypoints', name: 'map_get_waypoints')]

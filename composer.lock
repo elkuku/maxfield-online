@@ -1598,12 +1598,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/maxfield-parser.git",
-                "reference": "1ebf98df5fe4dddb9d12738c508eec32109893b8"
+                "reference": "c639eddfe6bcbe55e46c7c31210e1e0000b817cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/maxfield-parser/zipball/1ebf98df5fe4dddb9d12738c508eec32109893b8",
-                "reference": "1ebf98df5fe4dddb9d12738c508eec32109893b8",
+                "url": "https://api.github.com/repos/elkuku/maxfield-parser/zipball/c639eddfe6bcbe55e46c7c31210e1e0000b817cd",
+                "reference": "c639eddfe6bcbe55e46c7c31210e1e0000b817cd",
                 "shasum": ""
             },
             "require": {
@@ -1634,7 +1634,7 @@
                 "issues": "https://github.com/elkuku/maxfield-parser/issues",
                 "source": "https://github.com/elkuku/maxfield-parser/tree/master"
             },
-            "time": "2022-03-11T16:13:10+00:00"
+            "time": "2022-03-29T18:21:30+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
@@ -2619,16 +2619,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706"
+                "reference": "77a32518733312af16a44300404e945338981de3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/93ebd0014cab80c4ea9f5e297ea48672f1b87706",
-                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/77a32518733312af16a44300404e945338981de3",
+                "reference": "77a32518733312af16a44300404e945338981de3",
                 "shasum": ""
             },
             "require": {
@@ -2663,9 +2663,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.1"
             },
-            "time": "2022-01-04T19:58:01+00:00"
+            "time": "2022-03-15T21:29:03+00:00"
         },
         {
             "name": "psr/cache",
@@ -9270,16 +9270,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "cc67578d9afd0f5f2545067285613d7a529aefac"
+                "reference": "f32e95f571c9587b4e14be05253ae56fedd00b2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cc67578d9afd0f5f2545067285613d7a529aefac",
-                "reference": "cc67578d9afd0f5f2545067285613d7a529aefac",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f32e95f571c9587b4e14be05253ae56fedd00b2c",
+                "reference": "f32e95f571c9587b4e14be05253ae56fedd00b2c",
                 "shasum": ""
             },
             "require": {
@@ -9305,7 +9305,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.5.1"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.2"
             },
             "funding": [
                 {
@@ -9325,7 +9325,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-28T15:34:48+00:00"
+            "time": "2022-03-29T07:34:36+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -9814,12 +9814,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2fcd9551cd31a444bbc43d221d483fa658d4c21b"
+                "reference": "d18138cbf1c2143c21b29d58eac6e0bd0852db2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2fcd9551cd31a444bbc43d221d483fa658d4c21b",
-                "reference": "2fcd9551cd31a444bbc43d221d483fa658d4c21b",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d18138cbf1c2143c21b29d58eac6e0bd0852db2b",
+                "reference": "d18138cbf1c2143c21b29d58eac6e0bd0852db2b",
                 "shasum": ""
             },
             "conflict": {
@@ -9965,7 +9965,10 @@
                 "ivankristianto/phpwhois": "<=4.3",
                 "jackalope/jackalope-doctrine-dbal": "<1.7.4",
                 "james-heinrich/getid3": "<1.9.21",
-                "joomla/archive": "<1.1.10",
+                "joomla/archive": "<1.1.12|>=2,<2.0.1",
+                "joomla/filesystem": "<1.6.2|>=2,<2.0.1",
+                "joomla/filter": "<1.4.4|>=2,<2.0.1",
+                "joomla/input": ">=2,<2.0.2",
                 "joomla/session": "<1.3.1",
                 "jsdecena/laracom": "<2.0.9",
                 "jsmitty12/phpwhois": "<5.1",
@@ -10271,7 +10274,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-26T01:31:07+00:00"
+            "time": "2022-03-29T17:10:39+00:00"
         },
         {
             "name": "sebastian/cli-parser",

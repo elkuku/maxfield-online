@@ -13,6 +13,7 @@ class DefaultController extends BaseController
         return $this->render(
             'default/index.html.twig',
             [
+                'maxfields' => $this->getUser()?->getMaxfields(),
                 'controller_name' => 'DefaultController',
                 'php_version'     => PHP_VERSION,
                 'symfony_version' => Kernel::VERSION,

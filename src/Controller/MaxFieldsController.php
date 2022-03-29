@@ -2,56 +2,31 @@
 
 namespace App\Controller;
 
+use App\Entity\Maxfield;
+use App\Form\MaxfieldType;
 use App\Repository\WaypointRepository;
 use App\Service\MaxFieldGenerator;
 use App\Service\MaxFieldHelper;
-use Elkuku\MaxfieldParser\GpxHelper;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Exception\IOException;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityManagerInterface;
+use Elkuku\MaxfieldParser\JsonHelper;
+use Elkuku\MaxfieldParser\MaxfieldParser;
+use Exception;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: 'max-fields')]
-class MaxFieldsController extends AbstractController
+#[Route(path: 'maxfield')]
+class MaxFieldsController extends BaseController
 {
-    #[Route(path: '/', name: 'max_fields')]
-    public function index(MaxFieldHelper $maxFieldHelper): Response
-    {
-        return $this->render(
-            'max_fields/index.html.twig',
-            [
-                'list'            => $maxFieldHelper->getList(),
-                'maxfieldVersion' => $maxFieldHelper->getMaxfieldVersion(),
-            ]
-        );
-    }
-
-    #[Route(path: '/show/{item}', name: 'max_fields_result')]
-    public function display(
-        MaxFieldHelper $maxFieldHelper,
-        string $item
-    ): Response {
-        return $this->render(
-            'max_fields/result.html.twig',
-            [
-                'item'            => $item,
-                'info'            => $maxFieldHelper->getMaxField($item),
-                'maxfieldVersion' => $maxFieldHelper->getMaxfieldVersion(),
-            ]
-        );
-    }
-
-    #[Route(path: '/export', name: 'export-maxfields')]
+    #[Route(path: '/generate', name: 'maxfield_generate')]
     public function generateMaxFields(
         WaypointRepository $repository,
         MaxFieldGenerator $maxFieldGenerator,
         MaxFieldHelper $maxFieldHelper,
-        Request $request
+        Request $request,
+        EntityManagerInterface $entityManager,
     ): Response {
         $points = $request->request->all('points');
 
@@ -65,212 +40,106 @@ class MaxFieldsController extends AbstractController
         $buildName = $request->request->get('buildName');
         $playersNum = (int)$request->request->get('players_num') ?: 1;
         $options = [
-            'skip_plots'      => $request->request->getBoolean('skip_plots'),
-            'skip_step_plots' => $request->request->getBoolean(
-                'skip_step_plots'
-            ),
+            'skip_plots'      => true,
+            'skip_step_plots' => true,
         ];
 
         $timeStamp = date('Y-m-d');
         $projectName = $playersNum.'pl-'.$timeStamp.'-'.$buildName;
 
-        $maxFieldGenerator->generate(
-            $projectName,
-            $maxField,
-            $playersNum,
-            $options
-        );
+        try {
+            $maxFieldGenerator->generate(
+                $projectName,
+                $maxField,
+                $playersNum,
+                $options
+            );
 
-        return $this->render(
-            'max_fields/result.html.twig',
-            [
-                'item'            => $projectName,
-                'info'            => $maxFieldHelper->getMaxField($projectName),
-                'maxfieldVersion' => $maxFieldHelper->getMaxfieldVersion(),
+            $json = (new JsonHelper())
+                ->getJsonData(
+                    new MaxfieldParser(
+                        $maxFieldGenerator->getPath($projectName)
+                    )
+                );
 
-            ]
-        );
+            $maxfield = (new Maxfield())
+                ->setName($projectName)
+                ->setJsonData($json)
+                ->setOwner($this->getUser());
+
+            $entityManager->persist($maxfield);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Maxfield has been created');
+        } catch (IOExceptionInterface $exception) {
+            echo 'An error occurred while creating your directory at '
+                .$exception->getPath();
+            $this->addFlash(
+                'danger',
+                'An error occurred while creating your directory at '
+                .$exception->getPath()
+            );
+        } catch (Exception $exception) {
+            $this->addFlash('danger', $exception->getMessage());
+            echo $exception->getMessage();
+        }
+
+        return $this->redirectToRoute('default');
     }
 
-    #[Route(path: '/send_mail', name: 'maxfields-send-mail')]
-    public function sendMail(
-        MaxFieldHelper $maxFieldHelper,
-        MailerInterface $mailer,
+    #[Route('/edit/{id}', name: 'maxfield_edit', methods: ['GET', 'POST'])]
+    public function edit(
         Request $request,
-        Pdf $pdf
-    ): JsonResponse {
-        $agent = $request->get('agent');
-        $email = $request->get('email');
-        $item = $request->get('item');
-
-        try {
-            $info = $maxFieldHelper->getMaxField($item);
-
-            $linkList = $pdf
-                ->getOutputFromHtml(
-                    $this->renderView(
-                        'max_fields/link-list.html.twig',
-                        [
-                            'info'  => $info,
-                            'agent' => $agent,
-                        ]
-                    ),
-                    ['encoding' => 'utf-8']
-                );
-
-            $keyList = $pdf
-                ->getOutputFromHtml(
-                    $this->renderView(
-                        'max_fields/pdf-keys.html.twig',
-                        [
-                            'info'  => $info,
-                            'agent' => $agent,
-                        ]
-                    ),
-                    ['encoding' => 'utf-8']
-                );
-
-            $email = (new TemplatedEmail())
-                ->from($_ENV['MAILER_FROM_MAIL'])
-                ->to($email)
-                ->subject('MaxFields Plan '.$item)
-                ->attach($linkList, 'link-list.pdf', 'application/pdf')
-                ->attach($keyList, 'key-list.pdf', 'application/pdf')
-                ->htmlTemplate('max_fields/email.html.twig')
-                ->context(
-                    [
-                        'img_portal_map' => $item.'/portal_map.png',
-                        'img_link_map'   => $item.'/link_map.png',
-                        'item'           => $item,
-                        'agent'          => $agent,
-                        'info'           => $info,
-                    ]
-                );
-
-            $mailer->send($email);
-            $data = [
-                'status'  => 'ok',
-                'message' => 'Message has been sent.',
-            ];
-        } catch (\Exception $exception) {
-            $data = [
-                'status'  => 'error',
-                'message' => 'error sending mail: '.$exception->getMessage(),
-            ];
-        }
-
-        return $this->json($data);
-    }
-
-    #[Route(path: '/gpx/{item}', name: 'max_fields_gpx')]
-    public function getGpx(string $item, GpxHelper $gpxHelper, MaxFieldHelper $maxFieldHelper): void
-    {
-        $gpx = $gpxHelper->getWaypointsGpx($maxFieldHelper->getParser($item));
-
-        header('Content-type: text/plain');
-        header(
-            'Content-Disposition: attachment; filename="'.$item
-            .'-waypoints.gpx"'
-        );
-
-        echo $gpx;
-
-        exit();
-    }
-
-    #[Route(path: '/gpxroute/{item}', name: 'max_fields_gpxroute')]
-    public function getGpxRoute(GpxHelper $gpxHelper, MaxFieldHelper $maxFieldHelper, string $item): void
-    {
-        $gpx = $gpxHelper->getRouteGpx($maxFieldHelper->getParser($item));
-
-        header('Content-type: text/plain');
-        header(
-            'Content-Disposition: attachment; filename="'.$item.'-route.gpx"'
-        );
-
-        echo $gpx;
-
-        exit();
-    }
-
-    #[Route(path: '/gpxtrack/{item}', name: 'max_fields_gpxtrack')]
-    public function getGpxTrack(GpxHelper $gpxHelper, MaxFieldHelper $maxFieldHelper, string $item): void
-    {
-        $gpx = $gpxHelper->getTrackGpx($maxFieldHelper->getParser($item));
-
-        header('Content-type: text/plain');
-        header(
-            'Content-Disposition: attachment; filename="'.$item.'-track.gpx"'
-        );
-
-        echo $gpx;
-
-        exit();
-    }
-
-    #[Route(path: '/gpxroutetrack/{item}', name: 'max_fields_gpxroutetrack')]
-    public function getGpxRouteTrack(GpxHelper $gpxHelper, MaxFieldHelper $maxFieldHelper, string $item): void
-    {
-        $gpx = $gpxHelper->getRouteTrackGpx($maxFieldHelper->getParser($item));
-
-        header('Content-type: text/plain');
-        header(
-            'Content-Disposition: attachment; filename="'.$item.'-maxfield.gpx"'
-        );
-
-        echo $gpx;
-
-        exit();
-    }
-
-    #[Route(path: '/delete/{item}', name: 'max_fields_delete')]
-    public function delete(
-        MaxFieldGenerator $maxFieldGenerator,
-        MaxFieldHelper $maxFieldHelper,
-        string $item
+        EntityManagerInterface $entityManager,
+        Maxfield $maxfield,
     ): Response {
-        try {
-            $maxFieldGenerator->remove($item);
-
-            $this->addFlash('success', sprintf('%s has been removed.', $item));
-        } catch (IOException $exception) {
-            $this->addFlash('warning', $exception->getMessage());
+        if (!$this->isGranted('ROLE_ADMIN')
+            && $maxfield->getOwner() !== $this->getUser()
+        ) {
+            throw $this->createAccessDeniedException('No access for you!');
         }
 
-        return $this->render(
-            'max_fields/index.html.twig',
+        $form = $this->createForm(MaxfieldType::class, $maxfield);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /**
+             * @var Maxfield $data
+             */
+            $data = $form->getData();
+            $entityManager->persist($data);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Maxfield updated!');
+
+            return $this->redirectToRoute('default');
+        }
+
+        return $this->renderForm(
+            'maxfield/edit.html.twig',
             [
-                'list'            => $maxFieldHelper->getList(),
-                'maxfieldVersion' => $maxFieldHelper->getMaxfieldVersion(),
+                'form'     => $form,
+                'maxfield' => $maxfield,
             ]
         );
     }
 
-    #[Route(path: '/maxfield2strike', name: 'maxfields-maxfield2strike')]
-    public function maxfield2strike(
-        MaxField2Strike $maxField2Strike,
-        Request $request
-    ): JsonResponse {
-        $opName = (string)$request->query->get('opName');
-        $maxfieldName = (string)$request->query->get('maxfieldName');
+    #[Route('/delete/{id}', name: 'maxfield_delete', methods: ['GET'])]
+    public function delete(
+        EntityManagerInterface $entityManager,
+        Maxfield $maxfield,
+    ): Response {
+        if (!$this->isGranted('ROLE_ADMIN')
+            && $maxfield->getOwner() !== $this->getUser()
+        ) {
+            throw $this->createAccessDeniedException('No access for you!');
+        }
 
-        $result = $maxField2Strike->generateOp($opName, $maxfieldName);
-        $data = [
-            'status'  => 'ok',
-            'message' => $result,
-        ];
+        $entityManager->remove($maxfield);
+        $entityManager->flush();
 
-        return $this->json($data);
-    }
+        $this->addFlash('success', 'Maxfield has been removed.');
 
-    #[Route(path: '/log', name: 'maxfields-log')]
-    public function getLog(StrikeLogger $logger): Response
-    {
-        $response = new Response();
-        $response->headers->set('Content-Type', 'text/plain');
-        $response->setStatusCode(Response::HTTP_OK);
-        $response->setContent($logger->getLog());
-
-        return $response;
+        return $this->redirectToRoute('default');
     }
 }

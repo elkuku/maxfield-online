@@ -61,7 +61,7 @@ class MaxFieldGenerator
     }
 
     /**
-     * @param array<string, bool>  $options
+     * @param array<string, bool> $options
      */
     public function generate(
         string $projectName,
@@ -71,51 +71,48 @@ class MaxFieldGenerator
     ): void {
         $fileSystem = new Filesystem();
 
-        try {
-            $projectRoot = $this->rootDir.'/'.$projectName;
+        $projectRoot = $this->rootDir.'/'.$projectName;
 
-            if (is_dir($projectRoot)) {
-                throw new \UnexpectedValueException(
-                    'Project directory already exists!'
-                );
+        if (is_dir($projectRoot)) {
+            throw new \UnexpectedValueException(
+                'Project directory already exists!'
+            );
+        }
+
+        $fileSystem->mkdir($projectRoot);
+        $fileName = $projectRoot.'/portals.txt';
+        $fileSystem->appendToFile($fileName, $wayPointList);
+
+        if ($this->maxfieldVersion < 4) {
+            $command = "python {$this->maxfieldExec} $fileName"
+                ." -d $projectRoot -f output.pkl -n $playersNum";
+        } else {
+            $command = "{$this->maxfieldExec} $fileName"
+                ." --outdir $projectRoot --num_agents $playersNum --output_csv"
+                ." --num_cpus 0 --num_field_iterations 100 --max_route_solutions 100";
+
+            if ($this->googleApiKey) {
+                $command .= ' --google_api_key '.$this->googleApiKey;
+                $command .= ' --google_api_secret '.$this->googleApiSecret;
             }
 
-            $fileSystem->mkdir($projectRoot);
-            $fileName = $projectRoot.'/'.$projectName.'.waypoints';
-            $fileSystem->appendToFile($fileName, $wayPointList);
-
-            if ($this->maxfieldVersion < 4) {
-                $command = "python {$this->maxfieldExec} $fileName"
-                    ." -d $projectRoot -f output.pkl -n $playersNum";
-            } else {
-                $command = "{$this->maxfieldExec} $fileName"
-                    ." --outdir $projectRoot --num_agents $playersNum --output_csv"
-                    ." --num_cpus 0 --num_field_iterations 100 --max_route_solutions 100";
-
-                if ($this->googleApiKey) {
-                    $command .= ' --google_api_key '.$this->googleApiKey;
-                    $command .= ' --google_api_secret '.$this->googleApiSecret;
-                }
-
-                if ($options['skip_plots']) {
-                    $command .= " --skip_plots";
-                }
-
-                if ($options['skip_step_plots']) {
-                    $command .= " --skip_step_plots";
-                }
-
-                $command .= " --verbose > $projectRoot/log.txt 2>&1";
+            if ($options['skip_plots']) {
+                $command .= " --skip_plots";
             }
 
-            $fileSystem->dumpFile($projectRoot.'/command.txt', $command);
+            if ($options['skip_step_plots']) {
+                $command .= " --skip_step_plots";
+            }
 
-            exec($command);
-        } catch (IOExceptionInterface $exception) {
-            echo 'An error occurred while creating your directory at '
-                .$exception->getPath();
-        } catch (Exception $exception) {
-            echo $exception->getMessage();
+            $command .= " --verbose > $projectRoot/log.txt 2>&1";
+        }
+
+        $fileSystem->dumpFile($projectRoot.'/command.txt', $command);
+
+        $returnVal = exec($command);
+
+        if (false === $returnVal) {
+            throw new \UnexpectedValueException('Command returned a failure');
         }
     }
 
@@ -164,6 +161,11 @@ class MaxFieldGenerator
         $fileSystem = new Filesystem();
 
         $fileSystem->remove($this->rootDir."/$item");
+    }
+
+    public function getPath(string $projectDir = ''): string
+    {
+        return $projectDir ? $this->rootDir."/$projectDir" : $this->rootDir;
     }
 
     private function findFrames(string $item): int

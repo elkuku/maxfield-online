@@ -30,22 +30,28 @@ class ImportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $waypoints = $wayPointParser->parse($form->getData());
-                $count = $this->storeWayPoints($waypoints, $waypointRepo, $entityManager);
+                $count = $this->storeWayPoints(
+                    $waypoints,
+                    $waypointRepo,
+                    $entityManager
+                );
                 if ($count) {
                     $this->addFlash('success', $count.' Waypoint(s) imported!');
                 } else {
-                    $this->addFlash('warning', 'No Waypoints imported!');
+                    $this->addFlash(
+                        'warning',
+                        'No Waypoints have been imported!'
+                    );
                 }
 
-                // TODO reactivate redirect
-                // return $this->redirectToRoute('default');
+                return $this->redirectToRoute('default');
             } catch (Exception $exception) {
                 $this->addFlash('danger', $exception->getMessage());
 
                 return $this->render(
                     'import/index.html.twig',
                     [
-                        'form'   => $form->createView(),
+                        'form' => $form->createView(),
                     ]
                 );
             }
@@ -54,7 +60,7 @@ class ImportController extends AbstractController
         return $this->render(
             'import/index.html.twig',
             [
-                'form'   => $form->createView(),
+                'form' => $form->createView(),
             ]
         );
     }

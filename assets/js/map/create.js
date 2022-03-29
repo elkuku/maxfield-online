@@ -2,7 +2,7 @@ const $ = require('jquery')
 
 require('leaflet')
 require('leaflet/dist/leaflet.css')
-require('../../styles/maxfield.css')
+require('../../styles/map/create.css')
 
 require('leaflet.markercluster')
 require('leaflet.markercluster/dist/MarkerCluster.css')
@@ -245,7 +245,7 @@ $('#build').on('click', function () {
         + '  Working...'
     )
 
-    doPostRequest('/max-fields/export', {
+    doPostRequest('/maxfield/generate', {
         points: selectedMarkers,
         buildName: buildName.val(),
         players_num: $('#players_num').val(),

@@ -36,3 +36,4 @@ yarn-error.log
 ###< phpunit/phpunit ###
 
 phpstan.neon
+public/maxfields

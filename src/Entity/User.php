@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -45,6 +48,14 @@ class User implements UserInterface
     #[Column(type: Types::INTEGER, nullable: true)]
     private ?int $gitHubId = 0;
 
+    #[OneToMany(mappedBy: 'owner', targetEntity: Maxfield::class)]
+    private $maxfields;
+
+    public function __construct()
+    {
+        $this->maxfields = new ArrayCollection();
+    }
+
     /**
      * @return array{
      *     id: integer|null,
@@ -69,6 +80,11 @@ class User implements UserInterface
     {
         $this->id = $data['id'] ?? null;
         $this->identifier = (string)($data['identifier'] ?? null);
+    }
+
+    public function __toString()
+    {
+        return $this->identifier;
     }
 
     public function eraseCredentials(): void
@@ -145,6 +161,36 @@ class User implements UserInterface
     public function setGitHubId(?int $gitHubId): self
     {
         $this->gitHubId = $gitHubId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Maxfield>
+     */
+    public function getMaxfields(): Collection
+    {
+        return $this->maxfields;
+    }
+
+    public function addMaxfield(Maxfield $maxfield): self
+    {
+        if (!$this->maxfields->contains($maxfield)) {
+            $this->maxfields[] = $maxfield;
+            $maxfield->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaxfield(Maxfield $maxfield): self
+    {
+        if ($this->maxfields->removeElement($maxfield)) {
+            // set the owning side to null (unless already changed)
+            if ($maxfield->getOwner() === $this) {
+                $maxfield->setOwner(null);
+            }
+        }
 
         return $this;
     }

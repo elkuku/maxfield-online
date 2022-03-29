@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Maxfield;
 use App\Entity\User;
 use App\Entity\Waypoint;
 use App\Repository\UserRepository;
@@ -39,6 +40,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class);
         yield MenuItem::linkToCrud('Waypoints', 'fa fa-users', Waypoint::class);
+        yield MenuItem::linkToCrud('Maxfields', 'fa fa-users', Maxfield::class);
 
         yield MenuItem::section();
         yield MenuItem::linkToUrl('Homepage', 'fas fa-home', $this->generateUrl('default'));
