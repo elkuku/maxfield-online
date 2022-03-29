@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }} - DefaultController{% endblock %}
 
 {% block body %}
-    <h1  class="text-center">I <i class="bi-heart link-danger"></i> Maxfields</h1>
+    <h1 class="text-center">I <i class="bi-heart link-danger"></i> Maxfields</h1>
     {% if app.user %}
         <div class="alert alert-success">
             <h4>Welcome {{ app.user.userIdentifier }}!</h4>
@@ -11,10 +11,10 @@
         {% for maxfield in maxfields %}
             <div class="row maxfield-row">
                 <div class="col-8">
-                    <a href="{{ path('map_play', {'id': maxfield.id})}}">{{ maxfield.name }}</a>
+                    <a href="{{ path('map_play', {'id': maxfield.id}) }}">{{ maxfield.name }}</a>
                 </div>
                 <div class="col-4">
-                    <a href="{{ path('maxfield_edit', {'id': maxfield.id})}}">Edit</a>
+                    <a href="{{ path('maxfield_edit', {'id': maxfield.id}) }}">Edit</a>
                 </div>
             </div>
         {% else %}
@@ -28,4 +28,11 @@
             Howdy stranger <code>=;)</code> Please <a href="{{ path('connect_google_start') }}">Log in!</a>
         </h4>
     {% endif %}
+    <hr>
+    <div class="text-center">
+
+        <img loading="lazy" width="400"
+             src="https://user-images.githubusercontent.com/33978/160682926-035ee5d8-a92c-41a2-bbce-b72e9acc1011.gif"
+             alt="maxfield exaple movie">
+    </div>
 {% endblock %}
