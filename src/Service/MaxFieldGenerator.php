@@ -80,6 +80,14 @@ class MaxFieldGenerator
         }
 
         $fileSystem->mkdir($projectRoot);
+
+        if (!is_dir($projectRoot)) {
+            throw new \UnexpectedValueException(
+                'There was a problem creating your Project directory: '
+                .$projectRoot
+            );
+        }
+
         $fileName = $projectRoot.'/portals.txt';
         $fileSystem->appendToFile($fileName, $wayPointList);
 
