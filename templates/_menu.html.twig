@@ -18,6 +18,7 @@
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="nav-link" href="{{ path('admin') }}">Admin</a>
+                        <a class="nav-link" href="{{ path('app_test') }}">Test</a>
                     {% endif %}
                 {% endif %}
             </div>

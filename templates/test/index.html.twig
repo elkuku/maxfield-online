@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block body %}
+    <h1>Maxfield Logs</h1>
+    <ul>
+        {% for directory in directories %}
+            <li>
+                <a href="{{ path('app_test_log', {name: directory.filename}) }}">
+                    {{ directory.filename }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if dirName is defined %}
+        <h3>{{ dirName }}</h3>
+    {% endif %}
+    {% if contents is defined %}
+        <pre>{{ contents }}</pre>
+    {% endif %}
+{% endblock %}
