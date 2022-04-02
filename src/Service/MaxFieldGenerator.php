@@ -112,15 +112,23 @@ class MaxFieldGenerator
                 $command .= " --skip_step_plots";
             }
 
-            $command .= " --verbose > $projectRoot/log.txt 2>&1";
+            $command .= " --verbose 2>&1 > $projectRoot/log.txt 2>&1";
         }
 
         $fileSystem->dumpFile($projectRoot.'/command.txt', $command);
 
-        $returnVal = exec($command);
+        $output = [];
+        $resultCode = 0;
+        $returnVal = exec($command, $output, $resultCode);
 
         if (false === $returnVal) {
-            throw new \UnexpectedValueException('Command returned a failure');
+            throw new \UnexpectedValueException(
+                sprintf(
+                    'Command returned a failure: code: %s - %s',
+                    $resultCode,
+                    print_r($output, true)
+                )
+            );
         }
     }
 
