@@ -12,7 +12,8 @@ class DefaultController extends BaseController
     public function index(string $projectDir): Response {
         $fileSystem = new Filesystem();
 
-        $buu = exec('which maxfield-plan 2>&1');
+        $buu = exec('pwd');
+        // $buu = exec('which maxfield-plan 2>&1');
 
         $projectRoot = $projectDir.'/public/maxfields/aaatest';
 
