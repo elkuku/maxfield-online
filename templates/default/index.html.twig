@@ -3,6 +3,7 @@
 {% block title %}{{ parent() }} - DefaultController{% endblock %}
 
 {% block body %}
+    <h1>{{hello}}</h1>
     <h1 class="text-center">I <i class="bi-heart link-danger"></i> Maxfields</h1>
     {% if app.user %}
         <div class="alert alert-success">
