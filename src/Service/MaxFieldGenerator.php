@@ -130,6 +130,16 @@ class MaxFieldGenerator
                 )
             );
         }
+
+        if (0 !== $resultCode) {
+            throw new \UnexpectedValueException(
+                sprintf(
+                    'Command returned a failure: code: %s - %s',
+                    $resultCode,
+                    print_r($output, true)
+                )
+            );
+        }
     }
 
     /**
