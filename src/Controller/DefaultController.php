@@ -12,6 +12,8 @@ class DefaultController extends BaseController
     public function index(string $projectDir): Response {
         $fileSystem = new Filesystem();
 
+        $buu = exec('which maxfield-plan 2>&1');
+
         $projectRoot = $projectDir.'/public/maxfields/aaatest';
 
         if (is_dir($projectRoot)) {
@@ -39,7 +41,7 @@ class DefaultController extends BaseController
             'default/index.html.twig',
             [
                 'maxfields' => $this->getUser()?->getMaxfields(),
-                'hello' => $hello,
+                'hello' => $buu,
             ]
         );
     }
